@@ -8,6 +8,10 @@ speechrecognition = "*"
 langchain = "*"
 openai = "*"
 langchain-openai = "*"
+pyaudio = "*"
+openai-whisper = "*"
+soundfile = "*"
+pocketsphinx = "*"
 
 [dev-packages]
 
