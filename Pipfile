@@ -12,6 +12,11 @@ pyaudio = "*"
 openai-whisper = "*"
 soundfile = "*"
 pocketsphinx = "*"
+pydub = "*"
+simpleaudio = "*"
+python-dotenv = "*"
+ffmpeg = "*"
+playsound = "*"
 
 [dev-packages]
 
