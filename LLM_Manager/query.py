@@ -24,7 +24,7 @@ def answer_query(query):
     tools_for_agent = [
         Tool(name="Crawl Google for the answer", 
              func=get_up_to_date_answer_tavily, 
-             description="useful for when you need to get the answer to current data queries")s
+             description="useful for when you need to get the answer to current data queries")
         ]
     
     
@@ -39,9 +39,9 @@ def answer_query(query):
     
     result = agent_executor.invoke(input={"input": prompt_template.format_prompt(name_of_person=name)})
     
-    linkedin_profile_url = result["output"]
+    url_to_Scrape = result["output"]
     
-    return linkedin_profile_url
+    return url_to_Scrape
 
     
     
