@@ -17,9 +17,8 @@ def generate_speech(text, voice='shimmer'):
         input=text,
     )
 
-    speech_file_path = "speggech.mp3"
+    speech_file_path = "AI_speech.mp3"
     response.stream_to_file(speech_file_path)
-    play_audio("C:\Users\Papak\Documents\lanchain\virtual_assitant\speggech.mp3")
     return speech_file_path
 
 def play_audio(file_path):
@@ -72,4 +71,4 @@ def listen_for_prompt():
                 print(f"Could not request results; {e}")
 
 if __name__ == "__main__":
-    listen_for_activation()
+    listen_for_prompt()
