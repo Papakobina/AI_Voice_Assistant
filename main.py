@@ -50,4 +50,4 @@ def listen_for_prompt():
                 print(f"Could not request results; {e}")
 
 if __name__ == "__main__":
-    listen_for_prompt()
+    listen_for_activation()
