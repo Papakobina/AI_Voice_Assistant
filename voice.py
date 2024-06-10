@@ -1,12 +1,13 @@
-from dotenv import load_dotenv
-load_dotenv()
-
-import speech_recognition as sr
 import openai
 from openai import OpenAI
-from pathlib import Path
+from dotenv import load_dotenv
 from pydub import AudioSegment
 from pydub.playback import play
+from playsound import playsound
+import pygame
+load_dotenv()
+
+
 
 # Function to generate speech from text
 def generate_speech(text, voice='shimmer'):
@@ -17,58 +18,23 @@ def generate_speech(text, voice='shimmer'):
         input=text,
     )
 
-    speech_file_path = "AI_speech.mp3"
+    speech_file_path = "audio/AI_speech.mp3"
     response.stream_to_file(speech_file_path)
     return speech_file_path
 
 def play_audio(file_path):
-    audio = AudioSegment.from_file(file_path)
-    play(audio)
-
-def listen_for_activation():
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        print("Say something!")
-        audio = r.listen(source)
-
-    try:
-        if "Phoenix" in r.recognize_whisper(audio, language="english"):
-            print("You said: Hi Phoenix")
-            listen_for_prompt()
-        else:
-            print("You said: " + r.recognize_whisper(audio, language="english"))
-    except sr.UnknownValueError:
-        print("Could not understand audio")
-    except sr.RequestError as e:
-        print(f"Could not request results; {e}")
-
-def listen_for_prompt():
-    r = sr.Recognizer()
-    while True:
-        with sr.Microphone() as source:
-            intro = "What would you like me to do?"
-            print(intro)
-            speech_file_path = generate_speech(intro)
-            print(speech_file_path)
-            play_audio(speech_file_path)
-
-            audio = r.listen(source)
-            try:
-                user_input = r.recognize_whisper(audio, language="english")
-                print("You said: " + user_input)
-
-                if "Bye Phoenix" in user_input:
-                    print("Ending conversation.")
-                    break
-
-                # Process the user's request here (e.g., query the LLM)
-                # response = process_request(user_input)
-                # response_speech_path = generate_speech(response)
-                # play_audio(response_speech_path)
-            except sr.UnknownValueError:
-                print("Could not understand audio")
-            except sr.RequestError as e:
-                print(f"Could not request results; {e}")
-
+    pygame.mixer.init(buffer=1024)  # Increase the buffer size if needed
+    pygame.mixer.music.load(file_path)
+    pygame.mixer.music.play()
+    while pygame.mixer.music.get_busy():  # Wait for the audio to finish playing
+        pygame.time.Clock().tick(10)
+    
+    
+def speak(text):
+    speech_file_path = generate_speech(text)
+    play_audio(speech_file_path)
+    
+    
 if __name__ == "__main__":
-    listen_for_prompt()
+    speak("Hello, I am from poland but speak french")
+

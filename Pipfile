@@ -17,6 +17,7 @@ simpleaudio = "*"
 python-dotenv = "*"
 ffmpeg = "*"
 playsound = "*"
+langchain-community = "*"
 
 [dev-packages]
 
